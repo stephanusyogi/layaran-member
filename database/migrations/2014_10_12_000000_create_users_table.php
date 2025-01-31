@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone_number');
             $table->string('profession')->nullable();
-            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            $table->enum('gender', ['Laki-Laki', 'Perempuan'])->nullable();
             $table->string('knowing_from')->nullable();
             $table->rememberToken();
             $table->softDeletes();

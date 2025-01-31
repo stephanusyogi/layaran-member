@@ -22,7 +22,7 @@
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->
-          @include('partials.sidebar')
+          @include('partials.navbar')
           <!-- / Navbar -->
 
           <!-- Content wrapper -->

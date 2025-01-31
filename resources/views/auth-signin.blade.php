@@ -72,22 +72,28 @@
               <h4 class="mb-2">Welcome to Layaran! 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-              <form class="mb-3" action="#" method="POST" autocomplete="off">
+              <form class="mb-3" action="{{ route('login.action') }}" method="POST" autocomplete="off">
                 @csrf
                 <div class="mb-3">
-                  <label for="customField[1]" class="form-label">Email</label>
+                  <label for="customField-1" class="form-label  @if ($errors->has('customField-1')) text-danger @elseif(old('customField-1') && !$errors->has('customField-1'))
+                    text-success @endif">Email</label>
                   <input
                     type="text"
-                    class="form-control"
-                    id="customField[1]"
-                    name="customField[1]"
+                    class="form-control @if ($errors->has('customField-1')) is-invalid text-danger @elseif(old('customField-1') && !$errors->has('customField-1'))
+                    is-valid text-success @endif"
+                    id="customField-1"
+                    name="customField-1"
+                    value="{{ old('customField-1') }}"
                     placeholder="Enter your registered email"
                     autofocus
                   />
+                  @error('customField-1')
+                    <div class="form-text text-danger">{{ $message }}</div>
+                  @enderror
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
-                    <label class="form-label" for="customField[2]">Password</label>
+                    <label class="form-label @error('customField-2') is-invalid @enderror" for="customField-2">Password</label>
                     <a href="javascript:void(0)">
                       <small>Forgot Password?</small>
                     </a>
@@ -95,14 +101,17 @@
                   <div class="input-group input-group-merge">
                     <input
                       type="password"
-                      id="customField[2]"
-                      class="form-control"
-                      name="customField[2]"
+                      id="customField-2"
+                      class="form-control @error('customField-2') is-invalid @enderror"
+                      name="customField-2"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
                     />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                    <span class="input-group-text cursor-pointer @error('customField-2') border-danger text-danger @enderror"><i class="bx bx-hide"></i></span>
                   </div>
+                  @error('customField-2')
+                      <div class="text-danger">{{ $message }}</div>
+                  @enderror
                 </div>
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
@@ -111,7 +120,7 @@
 
               <p class="text-center">
                 <span>New on our platform?</span>
-                <a href="javascript:void(0)">
+                <a href="{{ route('register') }}">
                   <span>Create an account</span>
                 </a>
               </p>
@@ -143,5 +152,32 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          @if(session('success'))
+              Swal.fire({
+                  toast: true,
+                  position: 'top-end',
+                  icon: 'success',
+                  title: "{{ session('success') }}",
+                  showConfirmButton: false,
+                  timer: 5000
+              });
+          @endif
+          @if(session('error'))
+              Swal.fire({
+                  toast: true,
+                  position: 'top-end',
+                  icon: 'error',
+                  title: "{{ session('error') }}",
+                  showConfirmButton: false,
+                  timer: 5000
+              });
+          @endif
+      });
+      </script>
   </body>
 </html>

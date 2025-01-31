@@ -14,11 +14,17 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [AuthController::class, 'signin'])->name('login');
+    Route::post('/login', [AuthController::class, 'signin_action'])->name('login.action');
+    
+    Route::get('/register', [AuthController::class, 'signup'])->name('register');
+    Route::post('/register', [AuthController::class, 'signup_action'])->name('register.action');
+});
 
-Route::get('/', [DashboardController::class, 'index']);
 
-Route::get('/login', [AuthController::class, 'signin']);
-Route::post('/login', [AuthController::class, 'signin_action']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/register', [AuthController::class, 'signup']);
-Route::post('/register', [AuthController::class, 'signup_action'])->name('register.action');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+});

@@ -2,12 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function signin(Request $request){
         return view('auth-signin');
+    }
+
+    public function signin_action(Request $request){
+        $credentials = $request->validate([
+            'customField-1' => 'required|email|max:255|exists:users,email_address',
+            'customField-2' => 'required|string|min:8|max:32',
+        ], [
+            'customField-1.required' => 'Email is required.',
+            'customField-1.email' => 'Enter a valid email address.',
+            'customField-1.exists' => 'Email is not registered.',
+    
+            'customField-2.required' => 'Password is required.',
+            'customField-2.string' => 'Password must be a valid string.',
+            'customField-2.min' => 'Password must be at least 8 characters long.',
+            'customField-2.max' => 'Password cannot exceed 32 characters.',
+        ]);
+        
+        if (Auth::attempt([
+            'email_address' => $credentials['customField-1'],
+            'password' => $credentials['customField-2'],
+        ], $request->has('remember'))) {
+            $request->session()->regenerate();
+
+            return redirect()->intended(route('dashboard'))->with('success', 'Login successful! Welcome back.');
+        }
+        
+        // dd("sip");
+    
+        // Authentication failed
+        return back()->with('error', 'Invalid email or password.')->withInput();
+    
     }
 
     public function signup(Request $request){
@@ -68,8 +104,43 @@ class AuthController extends Controller
             'customField-9.string'    => 'Confirm Password must be a valid string.',
             'customField-9.same'      => 'Passwords do not match. Please re-enter.',
         ]);
-
-        dd($formData);
-        return redirect()->back();
+        
+        try {
+            DB::beginTransaction();
+    
+            User::create([
+                'first_name'    => $formData['customField-1'],
+                'last_name'     => $formData['customField-2'] ?? null,
+                'email_address' => $formData['customField-3'],
+                'phone_number'  => $formData['customField-4'],
+                'profession'    => $formData['customField-5'] ?? null,
+                'gender'        => $formData['customField-6'] ?? null,
+                'knowing_from'  => $formData['customField-7'] ?? null,
+                'password'      => Hash::make($formData['customField-8']),
+            ]);
+    
+            DB::commit();
+    
+            return redirect('/login')->with('success', 'Registration successful! Please log in.');
+        } catch (Exception $e) {
+            DB::rollBack();
+    
+            \Illuminate\Support\Facades\Log::error('User registration failed: ' . $e->getMessage());
+    
+            return redirect()->back()->with('error', 'Registration failed! Please try again.');
+        }
+    
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login')->with('success', 'You have been logged out.');
+    }
+
 }
