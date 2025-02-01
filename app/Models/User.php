@@ -8,12 +8,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
+
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    protected $primaryKey = 'uid';
+    protected $primaryKey = 'user_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -51,4 +55,17 @@ class User extends Authenticatable
         'phone_number' => 'string',
         'password' => 'hashed',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Automatically generate UUID on creation
+        static::creating(function ($model) {
+            if (empty($model->user_id)) {
+                $model->user_id = (string) Str::uuid();
+            }
+        });
+    }
+
 }

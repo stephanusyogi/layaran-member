@@ -54,9 +54,9 @@
   <body>
     <!-- Content -->
 
-    <div class="container-xxl">
+    <div class="container-xl">
       <div class="authentication-wrapper authentication-basic container-p-y">
-        <div class="authentication-inner">
+        <div class="authentication-inner" style="max-width: 500px">
           <!-- Register -->
           <div class="card">
             <div class="card-body">
@@ -94,7 +94,7 @@
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
                     <label class="form-label @error('customField-2') is-invalid @enderror" for="customField-2">Password</label>
-                    <a href="javascript:void(0)">
+                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modalForgotPassword">
                       <small>Forgot Password?</small>
                     </a>
                   </div>
@@ -127,6 +127,37 @@
             </div>
           </div>
           <!-- /Register -->
+        </div>
+      </div>
+    </div>
+    
+    {{-- Modal --}}
+    <div class="modal fade" id="modalForgotPassword" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Forgot Your Password ?</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body text-center">
+            <p class="mb-3">
+              If you've forgotten your password, please contact our support team for assistance. 
+              Click the link below to reach us via WhatsApp.
+            </p>
+            <a href="#" class="btn btn-primary">
+              Contact Support
+            </a>
+          </div>                    
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>

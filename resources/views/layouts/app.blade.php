@@ -47,14 +47,16 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <div class="buy-now">
-      <a
-        href="javascript:void(0)"
-        target="_blank"
-        class="btn btn-danger btn-buy-now"
-        >Create a New Event</a
-      >
-    </div>
+    @if (url()->current() == url('/'))
+      <div class="buy-now">
+        <a
+          href="javascript:void(0)"
+          target="_blank"
+          class="btn btn-danger btn-buy-now"
+          >Create a New Event</a
+        >
+      </div>
+    @endif
 
     @include('partials.js')
   </body>
