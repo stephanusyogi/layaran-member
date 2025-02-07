@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Support\Str;
+@endphp
+
 <nav
     class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
     id="layout-navbar"
@@ -12,7 +16,7 @@
 
         <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
-                Welcome Member !
+                <h5 class="mb-0">{{ $title_page }}</h5>
             </div>
         </div>
 
@@ -34,8 +38,8 @@
                     </div>
                     </div>
                     <div class="flex-grow-1">
-                    <span class="fw-semibold d-block">John Doe</span>
-                    <small class="text-muted">Member</small>
+                    <span class="fw-semibold d-block"> {{ Str::limit(auth()->user()->first_name . " " . auth()->user()->last_name, 15, '...') }}</span>
+                    <small class="text-muted">{{ auth()->user()->role === 'admin' ? 'Admin' : 'Member'  }}</small>
                     </div>
                 </div>
                 </a>
@@ -44,7 +48,7 @@
                 <div class="dropdown-divider"></div>
             </li>
             <li>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ route('account_details', auth()->id() ) }}">
                 <i class="bx bx-user me-2"></i>
                 <span class="align-middle">Account Details</span>
                 </a>
@@ -53,12 +57,6 @@
                 <a class="dropdown-item" href="#">
                 <i class="bx bx-lock-alt me-2"></i>
                 <span class="align-middle">Change Password</span>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="#">
-                <i class="bx bx-cog me-2"></i>
-                <span class="align-middle">Manage Subscriptions</span>
                 </a>
             </li>
             <li>

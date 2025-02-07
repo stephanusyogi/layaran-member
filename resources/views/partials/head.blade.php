@@ -10,7 +10,7 @@
 <meta name="description" content="" />
 
 <!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="{{ asset('templates/assets/img/favicon/favicon.ico') }}" />
+<link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo-1.png') }}" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,7 +33,11 @@
 
 <link rel="stylesheet" href="{{ asset('templates/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
+{{-- Datatables --}}
+<link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+
 <!-- Page CSS -->
+@stack('css')
 
 <!-- Helpers -->
 <script src="{{ asset('templates/assets/vendor/js/helpers.js') }}"></script>
@@ -41,5 +45,3 @@
 <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 <script src="{{ asset('templates/assets/js/config.js') }}"></script>
-
-@stack('css')

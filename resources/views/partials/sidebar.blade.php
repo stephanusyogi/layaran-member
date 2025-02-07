@@ -1,4 +1,4 @@
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme border-end">
     <div class="app-brand demo">
       <a href="javascript:void(0)" class="app-brand-link">
         <span class="app-brand-logo demo">
@@ -32,6 +32,12 @@
           <i class="menu-icon tf-icons bx bx-receipt"></i>
           <div data-i18n="Billings">Billings</div>
         </a>
+      </li>
+      <li class="menu-item mt-auto mb-4">
+          <a href="javascript:void(0)" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-wallet"></i>
+              <div data-i18n="Manage Subscription">Manage Subscription</div>
+          </a>
       </li>
     </ul>
 </aside>

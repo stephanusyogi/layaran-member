@@ -112,6 +112,7 @@ class AuthController extends Controller
                 'first_name'    => $formData['customField-1'],
                 'last_name'     => $formData['customField-2'] ?? null,
                 'email_address' => $formData['customField-3'],
+                'role'          => 'member',
                 'phone_number'  => $formData['customField-4'],
                 'profession'    => $formData['customField-5'] ?? null,
                 'gender'        => $formData['customField-6'] ?? null,

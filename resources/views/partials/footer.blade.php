@@ -6,7 +6,7 @@
             <script>
                 document.write(new Date().getFullYear());
             </script>
-            , made with ❤️ by
+            , All rights resered.
             <a href="javascript:void(0)" target="_blank" class="footer-link fw-bolder">Layaran Livechat</a>
         </div>
         <div>

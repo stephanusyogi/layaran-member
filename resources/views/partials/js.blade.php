@@ -14,8 +14,11 @@
 <!-- Main JS -->
 <script src="{{ asset('templates/assets/js/main.js') }}"></script>
 
+{{-- Datatables --}}
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+
 <!-- Page JS -->
-<script src="{{ asset('templates/assets/js/dashboards-analytics.js') }}"></script>
+@stack('script')
 
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -46,5 +49,3 @@
       @endif
   });
 </script>
-
-@stack('script')
