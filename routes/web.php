@@ -32,4 +32,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Account Details
     Route::get('/account-details/{id}', [UserController::class, 'account_details'])->name('account_details');
+    Route::post('/account-details/update/{id}', [UserController::class, 'update'])->name('account_details.update');
+    Route::post('/account-details/deactivate/{id}', [UserController::class, 'deactivate'])->name('account_details.deactivate');
+    
 });

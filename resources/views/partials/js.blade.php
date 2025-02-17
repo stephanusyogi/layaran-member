@@ -34,7 +34,7 @@
               icon: 'success',
               title: "{{ session('success') }}",
               showConfirmButton: false,
-              timer: 5000
+              timer: 3000
           });
       @endif
       @if(session('error'))
@@ -44,7 +44,7 @@
               icon: 'error',
               title: "{{ session('error') }}",
               showConfirmButton: false,
-              timer: 5000
+              timer: 3000
           });
       @endif
   });

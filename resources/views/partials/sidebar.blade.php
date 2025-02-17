@@ -33,6 +33,18 @@
           <div data-i18n="Billings">Billings</div>
         </a>
       </li>
+      <li class="menu-item my-2">
+        <a href="javascript:void(0)" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-bell"></i>
+          <div data-i18n="Announcements">Announcements</div>
+        </a>
+      </li>
+      <li class="menu-item my-2">
+        <a href="javascript:void(0)" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-user"></i>
+          <div data-i18n="Members">Members</div>
+        </a>
+      </li>
       <li class="menu-item mt-auto mb-4">
           <a href="javascript:void(0)" class="menu-link">
               <i class="menu-icon tf-icons bx bx-wallet"></i>
