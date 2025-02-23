@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme border-end">
     <div class="app-brand demo">
-      <a href="javascript:void(0)" class="app-brand-link">
+      <a href="{{ route('dashboard') }}" class="app-brand-link">
         <span class="app-brand-logo demo">
           <img style="width: 60px" src="{{ asset('assets/images/logo-1.png') }}" alt="logo-layaran">
         </span>
@@ -15,8 +15,8 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-3">
-      <li class="menu-item my-2 active">
-        <a href="javascript:void(0);" class="menu-link">
+      <li class="menu-item my-2 {{ Request::is('/*') ? 'active' : '' }}"">
+        <a href="{{ route('dashboard') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Dashboard">Dashboard</div>
         </a>
@@ -33,18 +33,26 @@
           <div data-i18n="Billings">Billings</div>
         </a>
       </li>
-      <li class="menu-item my-2">
-        <a href="javascript:void(0)" class="menu-link">
+      @role('admin')
+      <li class="menu-item my-2 {{ Request::is('announcements*') ? 'active' : '' }}">
+        <a href="{{ route('announcements') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-bell"></i>
           <div data-i18n="Announcements">Announcements</div>
         </a>
       </li>
-      <li class="menu-item my-2">
-        <a href="javascript:void(0)" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-user"></i>
+      <li class="menu-item my-2 {{ Request::is('members*') ? 'active' : '' }}">
+        <a href="{{ route('members') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-group"></i>
           <div data-i18n="Members">Members</div>
         </a>
       </li>
+      <li class="menu-item my-2 {{ Request::is('administrators*') ? 'active' : '' }}">
+        <a href="{{ route('administrators') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-user-check"></i>
+          <div data-i18n="Members">Administrators</div>
+        </a>
+      </li>
+      @endrole
       <li class="menu-item mt-auto mb-4">
           <a href="javascript:void(0)" class="menu-link">
               <i class="menu-icon tf-icons bx bx-wallet"></i>

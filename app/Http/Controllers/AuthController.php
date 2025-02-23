@@ -36,11 +36,9 @@ class AuthController extends Controller
         ], $request->has('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('dashboard'))->with('success', 'Login successful! Welcome back.');
+            return redirect()->intended(route('dashboard'))->with('success', 'Login successful! <br> Welcome back.');
         }
         
-        // dd("sip");
-    
         // Authentication failed
         return back()->with('error', 'Invalid email or password.')->withInput();
     
@@ -108,7 +106,7 @@ class AuthController extends Controller
         try {
             DB::beginTransaction();
     
-            User::create([
+            $user = User::create([
                 'first_name'    => $formData['customField-1'],
                 'last_name'     => $formData['customField-2'] ?? null,
                 'email_address' => $formData['customField-3'],
@@ -119,16 +117,18 @@ class AuthController extends Controller
                 'knowing_from'  => $formData['customField-7'] ?? null,
                 'password'      => Hash::make($formData['customField-8']),
             ]);
+
+            $user->assignRole('member');
     
             DB::commit();
     
-            return redirect('/login')->with('success', 'Registration successful! Please log in.');
+            return redirect('/login')->with('success', 'Registration successful! <br> Please log in.');
         } catch (Exception $e) {
             DB::rollBack();
     
             \Illuminate\Support\Facades\Log::error('User registration failed: ' . $e->getMessage());
     
-            return redirect()->back()->with('error', 'Registration failed! Please try again.');
+            return redirect()->back()->with('error', 'Registration failed! <br> Please try again.');
         }
     
     }

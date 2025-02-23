@@ -35,6 +35,25 @@
 
 {{-- Datatables --}}
 <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+<style>
+  div.dt-container select.dt-input{
+    margin-right: 5px;
+  }
+  div.dt-container .dt-paging .dt-paging-button:hover{
+    border: 1px solid #696cff!important;
+    background: #696cff!important;
+    color: #fff!important;
+  }
+  div.dt-container .dt-paging .dt-paging-button.current:hover{
+    color: #fff!important;
+  }
+  .datatable-style thead th {
+      text-align: center !important;
+  }
+  td.dt-type-numeric{
+    text-align: left!important;
+  }
+</style>
 
 <!-- Page CSS -->
 @stack('css')

@@ -54,7 +54,7 @@
                 </a>
             </li>
             <li>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ route('account_details.change-password', auth()->id()) }}">
                 <i class="bx bx-lock-alt me-2"></i>
                 <span class="align-middle">Change Password</span>
                 </a>

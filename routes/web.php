@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
@@ -26,13 +27,29 @@ Route::middleware(['guest'])->group(function () {
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::middleware(['auth'])->group(function () {
-    // Dashboard
+Route::middleware(['auth', 'role:member|admin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Account Details
     Route::get('/account-details/{id}', [UserController::class, 'account_details'])->name('account_details');
-    Route::post('/account-details/update/{id}', [UserController::class, 'update'])->name('account_details.update');
     Route::post('/account-details/deactivate/{id}', [UserController::class, 'deactivate'])->name('account_details.deactivate');
+    Route::post('/account-details/update/{id}', [UserController::class, 'update'])->name('account_details.update');
+    Route::get('/account-details/change-password/{id}', [UserController::class, 'change_password'])->name('account_details.change-password');
+    Route::post('/account-details/change-password/{id}', [UserController::class, 'change_password_action'])->name('account_details.change-password-action');
+});
+
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/members/', [UserController::class, 'members'])->name('members'); 
+    Route::get('/administrators/', [UserController::class, 'administrators'])->name('administrators');
+    Route::get('/administrators/add', [UserController::class, 'administrators_add'])->name('administrators.add');
+    Route::post('/administrators/create', [UserController::class, 'administrators_create'])->name('administrators.create');
+    Route::get('/user/details/{id}', [UserController::class, 'details'])->name('user.details');
+
     
+    Route::get('/announcements/', [AnnounceController::class, 'index'])->name('announcements');
+    Route::get('/announcements/add', [AnnounceController::class, 'add'])->name('announcements.add');
+    Route::post('/announcements/add', [AnnounceController::class, 'create'])->name('announcements.create');
+    Route::get('/announcements/{id}', [AnnounceController::class, 'details'])->name('announcements.details');
+    Route::post('/announcements/update/{id}', [AnnounceController::class, 'update'])->name('announcements.update');
+    Route::post('/announcements/delete/{id}', [AnnounceController::class, 'delete'])->name('announcements.delete');
 });
