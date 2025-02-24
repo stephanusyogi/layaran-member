@@ -53,6 +53,9 @@
   td.dt-type-numeric{
     text-align: left!important;
   }
+  body.swal2-toast-shown .swal2-container{
+    width: 500px!important;
+  }
 </style>
 
 <!-- Page CSS -->

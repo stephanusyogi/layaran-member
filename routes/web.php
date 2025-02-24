@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,13 +30,21 @@ Route::middleware(['guest'])->group(function () {
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:member|admin'])->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
     Route::get('/account-details/{id}', [UserController::class, 'account_details'])->name('account_details');
     Route::post('/account-details/deactivate/{id}', [UserController::class, 'deactivate'])->name('account_details.deactivate');
     Route::post('/account-details/update/{id}', [UserController::class, 'update'])->name('account_details.update');
     Route::get('/account-details/change-password/{id}', [UserController::class, 'change_password'])->name('account_details.change-password');
     Route::post('/account-details/change-password/{id}', [UserController::class, 'change_password_action'])->name('account_details.change-password-action');
+
+    Route::middleware(['check.subscription'])->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/manage-subscriptions', [MembershipController::class, 'manage_subscription'])->name('manage_subscriptions');
+
+        Route::get('/billings', [BillingController::class, 'billings'])->name('billings');
+
+        Route::get('/events', [BillingController::class, 'index'])->name('events');
+    });
 });
 
 

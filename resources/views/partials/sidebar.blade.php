@@ -15,7 +15,7 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-3">
-      <li class="menu-item my-2 {{ Request::is('/*') ? 'active' : '' }}"">
+      <li class="menu-item my-2 {{ Request::is('/*') ? 'active' : '' }}">
         <a href="{{ route('dashboard') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Dashboard">Dashboard</div>
@@ -27,8 +27,9 @@
           <div data-i18n="Events">Events</div>
         </a>
       </li>
-      <li class="menu-item my-2">
-        <a href="javascript:void(0)" class="menu-link">
+      <li class="menu-item my-2  {{ Request::is('billings*') ? 'active' : '' }}">
+        <a href="{{ route('billings') }}" class="menu-link">
+
           <i class="menu-icon tf-icons bx bx-receipt"></i>
           <div data-i18n="Billings">Billings</div>
         </a>
@@ -53,8 +54,8 @@
         </a>
       </li>
       @endrole
-      <li class="menu-item mt-auto mb-4">
-          <a href="javascript:void(0)" class="menu-link">
+      <li class="menu-item mt-auto mb-4 {{ Request::is('manage_subscriptions*') ? 'active' : '' }}">
+          <a href="{{ route('manage_subscriptions') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-wallet"></i>
               <div data-i18n="Manage Subscription">Manage Subscription</div>
           </a>

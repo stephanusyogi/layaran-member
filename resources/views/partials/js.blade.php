@@ -14,6 +14,7 @@
 <!-- Main JS -->
 <script src="{{ asset('templates/assets/js/main.js') }}"></script>
 
+
 {{-- Datatables --}}
 <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
 
@@ -41,7 +42,7 @@
           Swal.fire({
               toast: true,
               position: 'top-end',
-              icon: 'error',
+              icon: 'info',
               title: "{!! session('error') !!}",
               showConfirmButton: false,
               timer: 3000

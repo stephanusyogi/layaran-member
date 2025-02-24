@@ -202,7 +202,7 @@
               Swal.fire({
                   toast: true,
                   position: 'top-end',
-                  icon: 'error',
+                  icon: 'info',
                   title: "{!! session('error') !!}",
                   showConfirmButton: false,
                   timer: 5000
