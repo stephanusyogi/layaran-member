@@ -19,12 +19,15 @@ class Billing extends Model
 
     protected $fillable = [
         'id',
-        'membership_id',
+        'user_id',
+        'invoice_id',
+        'plan_id',
         'date',
         'due_date',
         'amount',
         'total',
-        'file_path_invoice',
+        'payment_proof',
+        'payment_date',
         'status',
     ];
 
@@ -37,11 +40,15 @@ class Billing extends Model
     }
 
     /**
-     * Relationship: Billing belongs to a Membership.
+     * Relationship: Billing belongs to a User.
      */
-    public function membership(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Membership::class, 'membership_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function plan(){
+        return $this->belongsTo(Plan::class);
+    }    
 
 }

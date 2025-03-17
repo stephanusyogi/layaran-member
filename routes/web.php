@@ -4,6 +4,7 @@ use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,10 +42,13 @@ Route::middleware(['auth', 'role:member|admin'])->group(function () {
 
         Route::get('/manage-subscriptions', [MembershipController::class, 'manage_subscription'])->name('manage_subscriptions');
 
-        Route::get('/billings', [BillingController::class, 'billings'])->name('billings');
-
-        Route::get('/events', [BillingController::class, 'index'])->name('events');
+        Route::get('/events', [EventController::class, 'index'])->name('events');
     });
+
+    Route::get('/billings', [BillingController::class, 'index'])->name('billings');
+    Route::get('/billings/{id}', [BillingController::class, 'details'])->name('billings.details');
+    Route::post('/billings/order', [BillingController::class, 'order'])->name('billings.order');
+    Route::post('/billings/upload-proof/{invoice}', [BillingController::class, 'uploadProof'])->name('billings.uploadProof');
 });
 
 

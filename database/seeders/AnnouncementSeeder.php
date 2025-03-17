@@ -20,7 +20,7 @@ class AnnouncementSeeder extends Seeder
         $authorIds = User::where('role', 'admin')->pluck('user_id')->toArray();
 
         if (empty($authorIds)) {
-            $this->command->warn('No users with the role "member" found. Seeder will not create announcements.');
+            $this->command->warn('No users with the role "admin" found. Seeder will not create announcements.');
             return;
         }
 

@@ -18,13 +18,13 @@
 {{-- Datatables --}}
 <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
 
-<!-- Page JS -->
-@stack('script')
-
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Page JS -->
+@stack('script')
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {

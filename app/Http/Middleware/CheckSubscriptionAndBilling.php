@@ -7,6 +7,7 @@ use App\Models\Membership;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Redirect;
 
 class CheckSubscriptionAndBilling
 {
@@ -22,27 +23,25 @@ class CheckSubscriptionAndBilling
         }
 
         $currentRouteName = $request->route()->getName();
-
         $membership = Membership::where('user_id', $request->user()->user_id)->first();
-        if (!$membership || ($membership && $membership->status === 'expired')) {
+        
+        $billing = Billing::where('user_id', $request->user()->user_id)->first();
+        
+        if (!$membership && !$billing) {
             if ($currentRouteName !== 'manage_subscriptions') {
                 return redirect()->route('manage_subscriptions')
-                    ->with('error', 'Your subscription was not found or has expired. Please update your subscription to continue.');
+                    ->with('error', 'Your subscription was not found or has no active billing. Please update your subscription to continue.');
             }
         }
-        $billing = null;
-        if ($membership) {
-            $billing = Billing::where('membership_id', $membership->id)
-                ->where('status', '!=', 'paid')
-                ->latest('date')
-                ->first();
-        }
         
-        if ($billing && $currentRouteName !== 'billings') {
-            return redirect()->route('billings')
-                ->with('error', 'There is an outstanding billing issue. Please review your billing details.');
+        if ($membership && $membership->status === 'expired') {
+            if ($currentRouteName !== 'manage_subscriptions') {
+                return redirect()->route('manage_subscriptions')
+                    ->with('error', 'Your subscription has expired. Please update your subscription to continue.');
+            }
         }
 
         return $next($request);
     }
+
 }
